@@ -44,10 +44,9 @@ class RoleController extends Controller
             'description' => $request->description,
             'guard_name' => $gardName,
             'created_by' => Auth::id(),
-
         ]);
 
-
+        //TODO:: you can replace this loop with spatie functions
         foreach ($request->permission_id as $permission) {
             DB::table('role_has_permissions')->insert([
                 'permission_id' => $permission,
@@ -67,6 +66,8 @@ class RoleController extends Controller
     {
 
         // Fetch all permissions associated with the role
+        //TODO:: rename  $ss with any other related name
+
         $ss = DB::table('role_has_permissions')->where('role_id', $role->id)->get();
 
         // Extract permission IDs from the collection
