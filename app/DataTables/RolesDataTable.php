@@ -36,7 +36,7 @@ class RolesDataTable extends DataTable
                           </button>
                       </form>';
             $html .= '</div>';
-        
+
             return $html;
             })
 
@@ -54,10 +54,13 @@ class RolesDataTable extends DataTable
                 return $model->updatedBy ? $model->updatedBy->name : 'N\A';
             })
 
+
+
+            //FIXME::Check if model->created_at is not null
             ->editColumn('created_at', function ($model) {
                 return $model->created_at->format('Y-m-d H:i:s');
             })
-
+           //FIXME::Check if model->created_at is not null  and correct the data
             ->editColumn('updated_at', function ($model) {
                 return $model->created_at->format('Y-m-d H:i:s');
             })
@@ -103,7 +106,7 @@ class RolesDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-           
+
             Column::make('id')->addClass('text-center'),
             Column::make('name')->addClass('text-center'),
             Column::make('description')->addClass('text-center'),

@@ -10,7 +10,7 @@
 <body>
 
     <main id="main" class="main">
-
+        {{-- TODO:: REplace that with breadcrumb component and put yield title in head --}}
         @include('dashboard.layouts.title')
 
         @yield('content')
