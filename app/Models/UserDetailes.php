@@ -16,6 +16,7 @@ class UserDetailes extends Model
 
 
     protected $guarded = ['id'];
+    protected $table = 'user_detailes';
 
     //return user has these detailes
     public function user()  {

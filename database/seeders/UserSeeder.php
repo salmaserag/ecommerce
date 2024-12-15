@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -15,19 +16,9 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-       // User::truncate();
-        //$user =
-         User::create([
-           'name' =>'Salma Hamdy',
-           'email'=>'s@s.com',
-           //'role' => 'super admin',
-           //'status' =>'active',
-           'password'=>Hash::make('salmahamdy'),
-           
-        ]);
-        //$user->assignRole('super admin');
+       
 
-        DB::table('users')->insert([
+        User::create([
             'name' =>'Mohammed Gamal',
             'email'=>'m@m.com',
             'password'=>Hash::make('mohammed'),

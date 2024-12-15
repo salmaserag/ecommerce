@@ -45,8 +45,8 @@ return new class extends Migration
             $table->string('name')->unique();  
             $table->string('description') ->nullable();     // For MyISAM use string('name', 225); // (or 166 for InnoDB with Redundant/Compact row format)
             $table->string('guard_name'); // For MyISAM use string('guard_name', 25);
-            $table->foreignId('created_by')->default(1)->constrained('users','id')->restrictOnDelete()->cascadeOnUpdate();
-            $table->foreignId('updated_by')->nullable()->constrained('users','id')->restrictOnDelete()->cascadeOnUpdate();
+            $table->foreignId('created_by')->default(1)->constrained('admins','id')->restrictOnDelete()->cascadeOnUpdate();
+            $table->foreignId('updated_by')->nullable()->constrained('admins','id')->restrictOnDelete()->cascadeOnUpdate();
             $table->timestamps();
             if ($teams || config('permission.testing')) {
                 $table->unique([$columnNames['team_foreign_key'], 'name', 'guard_name']);

@@ -22,22 +22,27 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
-        $data =  [
-            'name'=> 'required|string|max:100|min:3',
+
+        $data = [
+            'name' => 'required|string|max:100|min:3',
             'email' => 'required|string|email|unique:users,email',
-            'password' =>  ['required', 'confirmed', Rules\Password::defaults()],
-            'address'=>'nullable|string|max:500',
-            'address'=>'nullable|string|max:500',
-            'phone'=>'nullable|string|max:20',
-            'gender'=> 'nullable|string|in:male,female',
-            'age'=>'nullable|integer',
-            'photo' =>'nullable|image|max:2048|mimes:png,jpg,jpeg'
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'address' => 'nullable|string|max:500',
+            'phone' => 'nullable|string|max:20',
+            'gender' => 'nullable|string|in:male,female',
+            'age' => 'nullable|integer',
+            'photo' => 'nullable|image|max:2048|mimes:png,jpg,jpeg'
         ];
         if ($this->routeIs('users.update')) {
-            $data['email'] = 'required|string|email|unique:users,email,'.$this->route('user')->id;
+
+            $user = $this->route('user'); // Retrieve the route parameter
+            $userId = is_object($user) ? $user->id : $user; // Get ID if object
+
+            $data['email'] = 'required|string|email|unique:users,email,' . $userId;
             $data['password'] = ['nullable'];
-         }
-         //dd($data,$this->route('user')->id);
+        }
+
+        
         return $data;
     }
 }

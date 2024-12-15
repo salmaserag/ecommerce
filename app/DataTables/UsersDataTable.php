@@ -61,7 +61,7 @@ class UsersDataTable extends DataTable
             })
 
             ->editColumn('updated_at', function ($model) {
-                return $model->created_at->format('Y-m-d H:i:s');
+                return  $model->created_at ? $model->created_at->format('Y-m-d H:i:s'): '';
             })
 
 

@@ -36,7 +36,7 @@ class CheckRole
                 || ($page == 'store' && AppHelper::perUser($type . '.create')) 
                 || ($page == 'update' && AppHelper::perUser($type . '.edit')) 
                 || ($page == 'change_status' && AppHelper::perUser($type . '.edit')) 
-                ||in_array($this->getRoute(), ['admin', 'users.profile', 'users.profile_update'])
+                ||in_array($this->getRoute(), ['admin.home', 'users.profile', 'users.profile_update'])
             )
             {
                 return $next($request);

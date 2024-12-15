@@ -83,7 +83,7 @@
                             <div class="mb-3 col-4">
                                 <div class="form-floating mb-3">
                                    
-                                        <x-form.select_mult>
+                                        <x-form.select_mult name="roles[]" id="role" for="role" aria="Roles" label="Roles">
                                         <option value="">Select Roles</option>
                                         @foreach ($roles as $role)
                                             <option value="{{ $role->id }}">{{ $role->name }}</option>

@@ -40,6 +40,16 @@
 
                                 </div>
                             </div>
+
+                            <div class="col-12 mb-3">
+                                <div class="form-floating">
+
+                                    <x-form.input value="{{ $role ? $role->guard_name : old('guard_name') }}" label="Guard Name"
+                                        id="guard" name="guard" placeholder="Guard Name" type="text"
+                                        for="guard" />
+
+                                </div>
+                            </div>
                             <div class="col-12 mb-3">
 
                                 <div class="form-floating">

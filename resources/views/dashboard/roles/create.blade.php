@@ -41,6 +41,14 @@
                             <div class="col-12 mb-3">
                                 <div class="form-floating">
 
+                                    <x-form.input value="{{ old('guard') }}" label="Guard Name" id="guard"
+                                        name="guard" placeholder="Guard Name" type="text" for="quard" />
+
+                                </div>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <div class="form-floating">
+
                                     <x-form.texterea type="text" name="description" id="description"
                                         placeholder="Description" value="{{ old('description') }}" for="description"
                                         label="Description" />

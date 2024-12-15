@@ -5,6 +5,9 @@
 <!-- Vendor JS Files -->
 <script src="{{asset('dashboard')}}/assets/vendor/apexcharts/apexcharts.min.js"></script>
 <script src="{{asset('dashboard')}}/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{{ asset('dashboard') }}/assets/js/jquery.validate.min.js"></script>
+
 <script src="{{asset('dashboard')}}/assets/vendor/chart.js/chart.umd.js"></script>
 <script src="{{asset('dashboard')}}/assets/vendor/echarts/echarts.min.js"></script>
 <script src="{{asset('dashboard')}}/assets/vendor/quill/quill.js"></script>
@@ -14,6 +17,8 @@
 
 <!-- Template Main JS File -->
 <script src="{{asset('dashboard')}}/assets/js/main.js"></script>
+
+
 
 
 

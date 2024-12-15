@@ -1,6 +1,8 @@
 <?php
 
 namespace Database\Seeders;
+
+use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +16,7 @@ class RolesAndPermissionsSeeder extends Seeder
      */
     public function run(): void
     {
-        $gardName = config('auth.defaults.guard');
+        $gardName = 'admin';
         $permissionsByRole = [
             'admin' => [
                 /* Settings */
@@ -36,11 +38,18 @@ class RolesAndPermissionsSeeder extends Seeder
                 'users.destroy',
 
                 /*catrgories*/
-                'catrgories.index',
-                'catrgories.show',
-                'catrgories.create',
-                'catrgories.edit',
-                'catrgories.destroy',
+                'categories.index',
+                'categories.show',
+                'categories.create',
+                'categories.edit',
+                'categories.destroy',
+
+                  /*products*/
+                  'products.index',
+                  'products.show',
+                  'products.create',
+                  'products.edit',
+                  'products.destroy',
             ],
         ];
 
@@ -69,10 +78,9 @@ class RolesAndPermissionsSeeder extends Seeder
                         'permission_id' => $id,
                     ])->toArray()
                 );
-            $users = User::where('id', 1)->get();
-            foreach ($users as $user) {
-                $user->assignRole($role);
-               // $user->syncPermissions($role->permissions);
+            $admins = Admin::where('id', 1)->get();
+            foreach ($admins as $admin) {
+                $admin->assignRole($role);
             }
         }
     }

@@ -1,11 +1,11 @@
 <select 
     class="form-select"
-    name="roles[]"
-    id="role" 
-    aria-label="role"
+    name="{{$name}}"
+    id="{{$id}}" 
+    aria-label="{{$aria}}"
     multiple>
     
     {{$slot}}
 
 </select>
-<label for="gender">Roles</label>
+<label for="{{$for ?? $id}}">{{$label}}</label>
