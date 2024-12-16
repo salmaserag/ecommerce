@@ -14,6 +14,7 @@ use App\Http\Controllers\Controller;
 use App\Models\UserDetailes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Jobs\ImportDataJob;
 
 class UserController extends Controller
 {
@@ -22,7 +23,7 @@ class UserController extends Controller
      */
     public function index(UsersDataTable $dataTable)
     {
-     
+
         return $dataTable->render('dashboard.users.index');
     }
 
@@ -70,17 +71,17 @@ class UserController extends Controller
             ]);
 
             $roles = Role::whereIn('id', $request->roles)->where('guard_name','web')->get();
-            
-            //dd($roles);//when retuened roles == roles in mode "Role" get()
-            $user->assignRole($roles);                                          //assign this equal rile to user 
 
-            DB::commit();                         //okay done 
+            //dd($roles);//when retuened roles == roles in mode "Role" get()
+            $user->assignRole($roles);                                          //assign this equal rile to user
+
+            DB::commit();                         //okay done
 
 
             return redirect()->route('users.index')->with('success', 'created successfully');
         } catch (Exception $e) {
             dd($e->getMessage());
-            DB::rollBack();               //if error in any table rollBack all 
+            DB::rollBack();               //if error in any table rollBack all
         }
     }
 
@@ -186,6 +187,20 @@ class UserController extends Controller
 
 
 
-   
+    public function queueJobs()
+    {
+
+        $user_Ids = User::where('status' , 1)->pluck('id');
+
+
+        ImportDataJob::dispatch($user_Ids)->delay(now()->second(10)); //queue
+
+
+        return "loading......";
+    }
+
+
+
+
 
 }

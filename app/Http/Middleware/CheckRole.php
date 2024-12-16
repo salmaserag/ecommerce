@@ -30,13 +30,13 @@ class CheckRole
                 list($type, $page) = explode('.', $this->getRoute());
             }
             if (
-                
-                 AppHelper::perUser($this->getRoute()) 
+
+                 AppHelper::perUser($this->getRoute())
                 || ($page == 'multi_destroy' && AppHelper::perUser($type . '.destroy'))
-                || ($page == 'store' && AppHelper::perUser($type . '.create')) 
-                || ($page == 'update' && AppHelper::perUser($type . '.edit')) 
-                || ($page == 'change_status' && AppHelper::perUser($type . '.edit')) 
-                ||in_array($this->getRoute(), ['admin.home', 'users.profile', 'users.profile_update'])
+                || ($page == 'store' && AppHelper::perUser($type . '.create'))
+                || ($page == 'update' && AppHelper::perUser($type . '.edit'))
+                || ($page == 'change_status' && AppHelper::perUser($type . '.edit'))
+                ||in_array($this->getRoute(), ['categories.markAsRead', 'categories.notification' , 'users.queue','admin.home', 'users.profile', 'users.profile_update'])
             )
             {
                 return $next($request);

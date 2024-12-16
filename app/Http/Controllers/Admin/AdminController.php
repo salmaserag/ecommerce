@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notifiable;
 
 class AdminController extends Controller
 {
+    use Notifiable;
+
     /**
      * Display a listing of the resource.
      */

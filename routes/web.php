@@ -52,10 +52,16 @@ Route::prefix('admin')->middleware(['auth:admin', 'verified','CheckRole'])->grou
     Route::get('/', function () {
         return view('dashboard.home');
     })->name('admin.home');
-    
+
+    Route::get('users/queue', [UserController::class , 'queueJobs'])->name('users.queue');
     Route::resource('users', UserController::class);
+
     Route::resource('roles', RoleController::class);
+
+    Route::get('categories/markAsRead', [CategoryController::class , 'markAsRead'])->name('categories.markAsRead' );
+    Route::get('categories/notification{id}', [CategoryController::class , 'notification'])->name('categories.notification' );
     Route::resource('categories', CategoryController::class);
+
     Route::resource('products', ProductController::class);
     Route::post('/validate-email', [UserController::class, 'validateEmail']);
 

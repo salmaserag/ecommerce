@@ -50,6 +50,9 @@ class RolesAndPermissionsSeeder extends Seeder
                   'products.create',
                   'products.edit',
                   'products.destroy',
+
+                    /*queue*/
+                  'users.queue'
             ],
         ];
 

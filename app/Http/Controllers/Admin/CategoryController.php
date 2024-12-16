@@ -1,15 +1,19 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use App\Models\Category;
 
+use App\Models\Admin;
+
+use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\CreateCategory;
 use App\Http\Requests\CategoryRequest;
 use App\DataTables\CategoriesDataTable;
-use App\Models\Product;
+use Illuminate\Support\Facades\Notification;
 
 class CategoryController extends Controller
 {
@@ -34,13 +38,24 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        Category::create([
+
+        $Category = Category::create([
             'name' => $request->name,
             'description' => $request->description,
             'created_by' => Auth::guard('admin')->id(),
 
         ]);
 
+
+
+        $created_by = auth()->guard('admin')->user()->name;
+        // Get all admins except the one who created the category
+        $admins = Admin::where('id', '!=', Auth::guard('admin')->id())->get();
+
+        // Send notification to each admin
+        foreach ($admins as $admin) {
+            Notification::send($admin, new CreateCategory($created_by, $Category->id, $Category->name, $Category->description));
+        }
         return redirect()->route('categories.index')->with('success', 'created successfully');
     }
 
@@ -49,6 +64,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+
         return view('dashboard.categories.show', compact('category'));
     }
 
@@ -96,9 +112,43 @@ class CategoryController extends Controller
 
     public function categoryProducts(Category $category)
     {
-       
+
         return view('website.product', compact('category'));
     }
 
 
+
+    public function notification($id)
+    {
+
+        // Find the category by ID
+        $category = Category::findOrFail($id);
+
+        // Get the IDs of the notifications related to this category
+        $getIds = DB::table('notifications')
+            ->where('data->category_id', $id)
+            ->pluck('id');
+
+        // If notifications are found, mark them as read
+        if ($getIds->isNotEmpty()) {
+            DB::table('notifications')
+                ->whereIn('id', $getIds)
+                ->update(['read_at' => now()]);
+        }
+        return view('dashboard.categories.show', compact('category'));
+    }
+
+
+    public function markAsRead()
+    {
+
+        $admin = Admin::find(Auth::guard('admin')->id());
+        foreach($admin->unreadNotifications as $notification){
+             $notification->markAsRead();
+            // $notification->delete();      //delete it from DB
+
+        }
+        return redirect()->back();
+
+    }
 }

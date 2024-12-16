@@ -15,16 +15,24 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-       
+
          Admin::create([
            'name' =>'Salma Hamdy',
            'email'=>'s@s.com',
            'password'=>Hash::make('salmahamdy'),
-           
-        ]);
-        
 
-       
+        ]);
+
+        $admin  = Admin::create([
+            'name' =>'Esraa Roshdy',
+            'email'=>'e@e.com',
+            'password'=>Hash::make('esraaroshdy'),
+
+         ]);
+
+
+
+
          Admin::factory()->count(10)->create();
     }
 }
